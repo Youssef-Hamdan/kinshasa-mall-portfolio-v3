@@ -1,0 +1,13 @@
+"use client";
+
+import { ThemeProvider } from "next-themes";
+import type { ReactNode } from "react";
+import { LanguageProvider } from "./premium-header/language-provider";
+
+export function Providers({ children }: { children: ReactNode }) {
+  return (
+    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+      <LanguageProvider>{children}</LanguageProvider>
+    </ThemeProvider>
+  );
+}

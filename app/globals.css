@@ -1,0 +1,568 @@
+@import "tailwindcss";
+
+/* next-themes uses `class="dark"` on <html>; map `dark:` utilities to that. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Animate scroll / sub-theme token changes (requires registered color syntax) */
+@property --background {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0f1111;
+}
+@property --foreground {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fcfcee;
+}
+@property --foreground-secondary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #d9d9cf;
+}
+@property --muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #171a1a;
+}
+@property --muted-foreground {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #9ea19b;
+}
+@property --card {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #1e2222;
+}
+@property --card-foreground {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #fcfcee;
+}
+@property --border {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #2a2f2f;
+}
+@property --border-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #3e4444;
+}
+@property --primary {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #29bcb7;
+}
+@property --primary-foreground {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #0f1111;
+}
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #29bcb7;
+}
+@property --accent-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(41, 188, 183, 0.16);
+}
+
+html {
+  transition:
+    --background 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --foreground 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --foreground-secondary 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --muted 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --muted-foreground 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --card 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --card-foreground 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --border 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --border-strong 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --primary 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --primary-foreground 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --accent 0.75s cubic-bezier(0.33, 1, 0.68, 1),
+    --accent-soft 0.75s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    transition: none;
+  }
+}
+
+/*
+ * Kinshasa Mall — teal / ivory / charcoal system.
+ * Core theme stays unchanged.
+ */
+:root {
+  color-scheme: dark;
+
+  --km-primary: #29bcb7;
+  --km-primary-hover: #22a7a2;
+  --km-bg: #0f1111;
+  --km-surface: #171a1a;
+  --km-card: #1e2222;
+  --km-border: #2a2f2f;
+  --km-text: #fcfcee;
+  --km-text-secondary: #d9d9cf;
+  --km-text-muted: #9ea19b;
+  --km-primary-soft: rgba(41, 188, 183, 0.16);
+  --km-neutral-dark: #333333;
+  --km-highlight-line: #3e4444;
+
+  --background: var(--km-bg);
+  --muted: var(--km-surface);
+  --card: var(--km-card);
+
+  --foreground: var(--km-text);
+  --foreground-secondary: var(--km-text-secondary);
+  --muted-foreground: var(--km-text-muted);
+  --card-foreground: var(--km-text);
+
+  --brand-teal: var(--km-primary);
+  --primary: var(--km-primary);
+  --primary-foreground: var(--km-bg);
+
+  --olive: var(--km-highlight-line);
+  --olive-secondary: var(--km-neutral-dark);
+
+  --accent: var(--km-primary);
+  --accent-soft: var(--km-primary-soft);
+  --accent-foreground: var(--km-text);
+
+  --border: var(--km-border);
+  --border-strong: var(--km-highlight-line);
+  --ring: var(--km-primary);
+
+  --gradient-hero: linear-gradient(135deg, #0f1111 0%, #171a1a 45%, #1e2222 100%);
+  --gradient-teal: linear-gradient(135deg, #29bcb7 0%, #1fa39e 100%);
+  --gradient-promo: linear-gradient(135deg, #29bcb7 0%, #22a7a2 100%);
+
+  --hero-bg: var(--background);
+
+  --photo-scrim: #0f1111;
+  --photo-text: #fcfcee;
+  --photo-text-secondary: #d9d9cf;
+}
+
+html.light {
+  color-scheme: light;
+
+  --km-primary: #29bcb7;
+  --km-primary-hover: #22a7a2;
+  --km-bg: #fcfcee;
+  --km-surface: #ffffff;
+  --km-card: #f4f4ea;
+  --km-border: #d9d9cc;
+  --km-text: #333333;
+  --km-text-secondary: #555555;
+  --km-text-muted: #787878;
+  --km-primary-soft: rgba(15, 114, 110, 0.12);
+  --km-neutral-dark: #444444;
+
+  --background: var(--km-bg);
+  --muted: var(--km-surface);
+  --card: var(--km-card);
+
+  --foreground: var(--km-text);
+  --foreground-secondary: var(--km-text-secondary);
+  --muted-foreground: var(--km-text-muted);
+  --card-foreground: var(--km-text);
+
+  --brand-teal: var(--km-primary);
+  --primary: var(--km-primary);
+  --primary-foreground: var(--km-bg);
+
+  --olive: var(--km-neutral-dark);
+  --olive-secondary: var(--km-text-secondary);
+
+  --accent: var(--km-primary);
+  --accent-soft: var(--km-primary-soft);
+  --accent-foreground: var(--km-text);
+
+  --border: var(--km-border);
+  --border-strong: color-mix(in srgb, var(--km-border) 55%, var(--km-text) 45%);
+  --ring: var(--km-primary);
+
+  --gradient-hero: linear-gradient(135deg, #fcfcee 0%, #f4f4ea 100%);
+  --gradient-teal: linear-gradient(135deg, #0f726e 0%, #0c5e5b 100%);
+  --gradient-promo: linear-gradient(135deg, #0f726e 0%, #0c5e5b 100%);
+
+  --hero-bg: var(--km-bg);
+}
+
+/* Light theme sub-themes */
+html.light.theme-cream {
+  --background: #fcfcee;
+  --foreground: #333333;
+  --foreground-secondary: #555555;
+  --muted: #f4f4ea;
+  --muted-foreground: #787878;
+  --card: #ffffff;
+  --card-foreground: #333333;
+  --border: #d9d9cc;
+  --border-strong: #b8b8aa;
+  --primary: #29bcb7;
+  --primary-foreground: #fcfcee;
+  --accent: #29bcb7;
+  --accent-soft: rgba(41, 188, 183, 0.12);
+}
+
+html.light.theme-mint {
+  --background: #e4f7f5;
+  --foreground: #143332;
+  --foreground-secondary: #355a58;
+  --muted: #d4efec;
+  --muted-foreground: #5f7d7a;
+  --card: #f5fffd;
+  --card-foreground: #143332;
+  --border: #b8ddda;
+  --border-strong: #88c7c2;
+  --primary: #0f8f8a;
+  --primary-foreground: #ffffff;
+  --accent: #29bcb7;
+  --accent-soft: rgba(15, 143, 138, 0.14);
+}
+
+/** Light counterpart to `html.dark.theme-deep-teal` — same hue family, lifted for light mode */
+html.light.theme-deep-teal {
+  --background: #dff5f2;
+  --foreground: #0f2e2c;
+  --foreground-secondary: #355a55;
+  --muted: #c8ebe6;
+  --muted-foreground: #4d6e6a;
+  --card: #f0fcfa;
+  --card-foreground: #0f2e2c;
+  --border: #9dd4cc;
+  --border-strong: #6bb3a8;
+  --primary: #29bcb7;
+  --primary-foreground: #ffffff;
+  --accent: #17948f;
+  --accent-soft: rgba(41, 188, 183, 0.16);
+}
+
+html.light.theme-sand {
+  --background: #efe4d0;
+  --foreground: #33271d;
+  --foreground-secondary: #5a4937;
+  --muted: #e2d2b8;
+  --muted-foreground: #7b6c5b;
+  --card: #fff8ec;
+  --card-foreground: #33271d;
+  --border: #cdbb9d;
+  --border-strong: #ad9671;
+  --primary: #29bcb7;
+  --primary-foreground: #fcfcee;
+  --accent: #c98f45;
+  --accent-soft: rgba(201, 143, 69, 0.16);
+}
+
+html.light.theme-soft-charcoal {
+  --background: #333333;
+  --foreground: #fcfcee;
+  --foreground-secondary: #d9d9cf;
+  --muted: #444444;
+  --muted-foreground: #c5c5b9;
+  --card: #3d3d3d;
+  --card-foreground: #fcfcee;
+  --border: #5a5a55;
+  --border-strong: #77776f;
+  --primary: #29bcb7;
+  --primary-foreground: #0f1111;
+  --accent: #29bcb7;
+  --accent-soft: rgba(41, 188, 183, 0.18);
+}
+
+/** Golden yellow — warm champagne light */
+html.light.theme-gold {
+  --background: #fff8e8;
+  --foreground: #2a2210;
+  --foreground-secondary: #5c4d2e;
+  --muted: #f5ecd4;
+  --muted-foreground: #7a6b47;
+  --card: #fffdf6;
+  --card-foreground: #2a2210;
+  --border: #e8d5a8;
+  --border-strong: #d4b87a;
+  --primary: #c9a227;
+  --primary-foreground: #1f1908;
+  --accent: #e8b218;
+  --accent-soft: rgba(201, 162, 39, 0.18);
+}
+
+/* Dark theme sub-themes */
+html.dark.theme-charcoal {
+  --background: #0f1111;
+  --foreground: #fcfcee;
+  --foreground-secondary: #d9d9cf;
+  --muted: #171a1a;
+  --muted-foreground: #9ea19b;
+  --card: #1e2222;
+  --card-foreground: #fcfcee;
+  --border: #2a2f2f;
+  --border-strong: #3e4444;
+  --primary: #29bcb7;
+  --primary-foreground: #0f1111;
+  --accent: #29bcb7;
+  --accent-soft: rgba(41, 188, 183, 0.16);
+}
+
+html.dark.theme-deep-teal {
+  --background: #082725;
+  --foreground: #f5fff8;
+  --foreground-secondary: #cce8e5;
+  --muted: #103a37;
+  --muted-foreground: #9fc7c3;
+  --card: #123f3c;
+  --card-foreground: #f5fff8;
+  --border: #1e5b56;
+  --border-strong: #2d746e;
+  --primary: #29bcb7;
+  --primary-foreground: #082725;
+  --accent: #7be3dd;
+  --accent-soft: rgba(41, 188, 183, 0.2);
+}
+
+html.dark.theme-night {
+  --background: #070909;
+  --foreground: #fcfcee;
+  --foreground-secondary: #d9d9cf;
+  --muted: #101313;
+  --muted-foreground: #999d96;
+  --card: #171a1a;
+  --card-foreground: #fcfcee;
+  --border: #252929;
+  --border-strong: #363c3c;
+  --primary: #29bcb7;
+  --primary-foreground: #070909;
+  --accent: #29bcb7;
+  --accent-soft: rgba(41, 188, 183, 0.14);
+}
+
+html.dark.theme-luxury-cream {
+  --background: #211c15;
+  --foreground: #fff4df;
+  --foreground-secondary: #e5d5bc;
+  --muted: #2e261c;
+  --muted-foreground: #bfae94;
+  --card: #352b1f;
+  --card-foreground: #fff4df;
+  --border: #4d4030;
+  --border-strong: #6b5a43;
+  --primary: #29bcb7;
+  --primary-foreground: #0f1111;
+  --accent: #d6a85f;
+  --accent-soft: rgba(214, 168, 95, 0.16);
+}
+
+/** Golden yellow — deep umber with bright gold accents */
+html.dark.theme-gold {
+  --background: #1a1408;
+  --foreground: #fff4d4;
+  --foreground-secondary: #e8d7a8;
+  --muted: #2a2212;
+  --muted-foreground: #c4b27a;
+  --card: #2a2112;
+  --card-foreground: #fff4d4;
+  --border: #4a3d1f;
+  --border-strong: #6b5a2e;
+  --primary: #e8c547;
+  --primary-foreground: #1a1408;
+  --accent: #f5d65c;
+  --accent-soft: rgba(232, 197, 71, 0.2);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-brand-teal: var(--brand-teal);
+  --color-olive: var(--olive);
+  --color-olive-secondary: var(--olive-secondary);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-hero-bg: var(--hero-bg);
+  --color-photo-text: var(--photo-text);
+  --color-photo-text-secondary: var(--photo-text-secondary);
+  --font-sans: "tt-commons-pro", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, monospace;
+}
+
+/* Promo / hero gradient utilities */
+.bg-gradient-kinshasa-hero {
+  background-image: var(--gradient-hero);
+}
+
+.bg-gradient-kinshasa-teal {
+  background-image: var(--gradient-teal);
+}
+
+.bg-gradient-kinshasa-promo {
+  background-image: var(--gradient-promo);
+}
+
+/* Offset for fixed header when using hash / in-page links */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Darken photography with palette charcoal */
+.bg-photo-scrim-55 {
+  background-color: color-mix(in srgb, var(--photo-scrim) 55%, transparent);
+}
+
+.bg-gradient-photo-scrim-t {
+  background-image: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--photo-scrim) 80%, transparent),
+    color-mix(in srgb, var(--photo-scrim) 50%, transparent),
+    color-mix(in srgb, var(--photo-scrim) 40%, transparent)
+  );
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.text-heading-lead {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--foreground) 78%, black) 0%,
+    var(--foreground) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-heading-accent {
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--primary) 88%, black) 0%,
+    color-mix(in srgb, var(--primary) 35%, white) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Infinite horizontal / vertical marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(calc(-100% - var(--gap, 1rem)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+@keyframes marquee-vertical-reverse {
+  from {
+    transform: translateY(calc(-100% - var(--gap, 1rem)));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--duration, 40s) linear infinite;
+}
+
+.marquee-track-reverse {
+  animation: marquee-reverse var(--duration, 40s) linear infinite;
+}
+
+.marquee-track-vertical {
+  animation: marquee-vertical var(--duration, 40s) linear infinite;
+}
+
+.marquee-track-vertical-reverse {
+  animation: marquee-vertical-reverse var(--duration, 40s) linear infinite;
+}
+
+/* Mall landing text entrance */
+@keyframes mall-text-fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.mall-text-animate {
+  animation: mall-text-fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mall-text-animate {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hero: subtle Ken Burns zoom */
+.hero-kenburns {
+  transform: scale(1);
+}
+
+@media (min-width: 768px) {
+  .hero-kenburns {
+    transform: scale(1.05);
+    animation: hero-subtle-zoom 30s infinite alternate ease-in-out;
+  }
+}
+
+@keyframes hero-subtle-zoom {
+  0% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-kenburns {
+    animation: none !important;
+    transform: scale(1) !important;
+  }
+}
