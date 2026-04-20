@@ -11,7 +11,7 @@ const OPENING_HOURS = "Mon–Sat 10:00 – 22:00 · Sun 10:00 – 21:00";
 
 export function MallFooter() {
   return (
-    <footer id="contact" className="border-border bg-card border-t">
+    <footer id="contact" className="border-border bg-muted relative z-10 border-t">
       <div className="mx-auto max-w-7xl px-4 pt-16 pb-8 md:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div className="flex flex-col gap-4">

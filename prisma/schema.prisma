@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Shop {
+  id          String   @id @default(cuid())
+  name        String
+  image       String
+  logo        String
+  description String
+  category    String   @default("Fashion & Lifestyle")
+  floor       String   @default("Level 0") // <-- ADD THIS LINE
+  createdAt   DateTime @default(now())
+}
+
+model Highlight {
+  id               String   @id @default(cuid())
+  img              String
+  title            String
+  desc             String
+  sliderName       String
+  progressBarClass String   @default("bg-gradient-to-br from-primary to-[color-mix(in_srgb,var(--primary)_28%,var(--background)_72%)]")
+  titleChipClass   String   @default("border-primary/40 bg-[color-mix(in_srgb,var(--primary)_18%,var(--card)_82%)] text-foreground")
+  createdAt        DateTime @default(now())
+}

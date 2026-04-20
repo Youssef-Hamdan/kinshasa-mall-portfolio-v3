@@ -1,4 +1,4 @@
-import { AboutCommunitySection } from "./AboutCommunitySection";
+import { AboutSection } from "./AboutCommunitySection";
 import { AmenitiesScrollSection } from "./AmenitiesScrollSection";
 import { MallInfoStackingCards } from "./MallInfoStackingCards";
 import { HeroSection } from "./HeroSection";
@@ -12,8 +12,31 @@ import { HeroAmenitiesBridge } from "./HomeHeroBridge";
 import { ScrollThemeController } from "./ScrollThemeController";
 import { MallStatsSection } from "./MallStatsSection";
 import { StackedImageReveal } from "./StackedImageReveal";
+import { prisma } from "@/lib/db";
+import LeasingSection from "./LeasingSection";
 
-export function MallLanding() {
+export const revalidate = 60;
+
+export default async function MallLanding() {
+
+  const liveShops = await prisma.shop.findMany({ 
+    orderBy: { createdAt: "desc" } 
+  });
+  
+  const uniqueCategories = Array.from(new Set(liveShops.map((shop: any) => shop.category)));
+
+  const dynamicRows = uniqueCategories.map(categoryName => ({
+    label: categoryName,
+    tiles: liveShops.filter((shop: any) => shop.category === categoryName)
+  }));
+
+  // 3. Duplicate the array to create your Marquee's infinite scrolling loop!
+  const marqueeRows = [...dynamicRows, ...dynamicRows];
+
+  const liveHighlights = await prisma.highlight.findMany({ 
+    orderBy: { createdAt: "desc" } 
+  });
+
   return (
     <div className="bg-background font-sans text-foreground">
       <ScrollThemeController />
@@ -26,11 +49,12 @@ export function MallLanding() {
       <MallStatsSection />
       {/* <MidPageBanner /> */}
       
-      <HighlightsGallery />
+      <HighlightsGallery highlights={liveHighlights}/>
       <StackedImageReveal />
       {/* <OffersPromotionsSection /> */}
-      <StoreDirectoryMosaic />
-      <AboutCommunitySection />
+      <StoreDirectoryMosaic marqueeRows={marqueeRows} />
+      {/* <AboutSection /> */}
+      <LeasingSection />
       <MallFooter />
     </div>
   );

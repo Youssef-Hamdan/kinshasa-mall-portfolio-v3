@@ -37,7 +37,7 @@ const ABOUT_MOUSE_TRAIL_IMAGES: string[] = [
   "/images/shops/al%20jawad.webp",
 ];
 
-export function AboutCommunitySection() {
+export function AboutSection() {
   const { t } = useLanguage();
 
   return (

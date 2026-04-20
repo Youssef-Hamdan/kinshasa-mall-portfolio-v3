@@ -121,7 +121,7 @@ export function HeroSection() {
             data-hero="title"
             className="text-foreground flex flex-col text-[clamp(3.2rem,10vw,12rem)] font-black uppercase leading-[0.78] tracking-[-0.06em]"
           >
-            <span className="whitespace-nowrap">Plus qu’un Mall</span>
+            <span className="whitespace-nowrap">Plus qu’un Mall...</span>
             <span className="text-primary mt-4 whitespace-nowrap pl-[0.08em] text-[0.72em] font-light italic tracking-[-0.04em]">
               Une Expérience
             </span>

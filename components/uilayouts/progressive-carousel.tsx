@@ -25,6 +25,8 @@ interface ProgressSliderProps {
   fastDuration?: number;
   vertical?: boolean;
   activeSlider: string;
+  /** When set, drives slide order and count instead of introspecting SliderContent children (more reliable with many slides). */
+  slideIds?: string[];
   className?: string;
 }
 
@@ -72,6 +74,7 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
   fastDuration = 400,
   vertical = false,
   activeSlider,
+  slideIds,
   className,
 }) => {
   const [active, setActive] = useState<string>(activeSlider);
@@ -80,9 +83,14 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
   const frame = useRef<number>(0);
   const firstFrameTime = useRef<number>(performance.now());
   const targetValue = useRef<string | null>(null);
-  const [sliderValues, setSliderValues] = useState<string[]>([]);
+  const fastForwardBaseRef = useRef(0);
+  const [sliderValues, setSliderValues] = useState<string[]>(() => slideIds ?? []);
 
   useEffect(() => {
+    if (slideIds && slideIds.length > 0) {
+      setSliderValues(slideIds);
+      return;
+    }
     const getChildren = React.Children.toArray(children).find(
       (child) => (child as React.ReactElement<any>).type === SliderContent
     ) as React.ReactElement<any> | undefined;
@@ -93,7 +101,11 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
       );
       setSliderValues(values);
     }
-  }, [children]);
+  }, [children, slideIds]);
+
+  useEffect(() => {
+    setActive(activeSlider);
+  }, [activeSlider]);
 
   useEffect(() => {
     if (sliderValues.length > 0) {
@@ -111,9 +123,10 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
     const timeFraction = elapsedTime / currentDuration;
 
     if (timeFraction <= 1) {
+      const base = fastForwardBaseRef.current;
       setProgress(
         isFastForward
-          ? progress + (100 - progress) * timeFraction
+          ? base + (100 - base) * timeFraction
           : timeFraction * 100
       );
       frame.current = requestAnimationFrame(animate);
@@ -139,6 +152,7 @@ export const ProgressSlider: FC<ProgressSliderProps> = ({
     if (value !== active) {
       const elapsedTime = performance.now() - firstFrameTime.current;
       const currentProgress = (elapsedTime / duration) * 100;
+      fastForwardBaseRef.current = currentProgress;
       setProgress(currentProgress);
       targetValue.current = value;
       setIsFastForward(true);

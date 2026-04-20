@@ -17,6 +17,14 @@ const SCROLL_TOP_PIN = 10;
 /** Ignore sub-pixel jitter; real direction changes use this minimum step. */
 const SCROLL_DELTA = 2;
 
+// Define your new luxury navigation items here
+const NAV_ITEMS = [
+  { label: "Home", href: "/" },
+  { label: "Highlights", href: "#highlights" },
+  { label: "Store", href: "#stores" },
+  { label: "Leasing", href: "#leasing" },
+];
+
 export default function PremiumHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -123,7 +131,7 @@ export default function PremiumHeader() {
         <div className="relative z-[60] flex min-w-0 items-center gap-1.5 sm:gap-2">
           <button
             type="button"
-            aria-label={mobileMenuOpen ? t.navbar.menuOpen : t.navbar.menuClosed}
+            aria-label={mobileMenuOpen ? t.navbar?.menuOpen || "Close menu" : t.navbar?.menuClosed || "Open menu"}
             aria-expanded={mobileMenuOpen}
             className="text-primary hover:text-foreground -ml-1 inline-flex size-10 shrink-0 items-center justify-center rounded-md outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background md:hidden"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -167,7 +175,7 @@ export default function PremiumHeader() {
 
         {/* Desktop Nav */}
         <nav className="hidden items-center gap-10 md:flex">
-          {t.navbar.navItems.map((item: { label: string; href: string }) =>
+          {NAV_ITEMS.map((item) =>
             item.href.startsWith("#") ? (
               <a
                 key={item.label}
@@ -209,7 +217,7 @@ export default function PremiumHeader() {
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
               className="bg-background absolute top-0 left-0 z-40 flex h-[100svh] min-h-[100svh] w-full flex-col items-center justify-center gap-8 pt-[env(safe-area-inset-top)] pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))]"
             >
-              {t.navbar.navItems.map((item: { label: string; href: string }, i: number) => (
+              {NAV_ITEMS.map((item, i) => (
                 <motion.div
                   key={item.label}
                   initial={{ opacity: 0, y: 20 }}
@@ -239,7 +247,7 @@ export default function PremiumHeader() {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
-                  delay: t.navbar.navItems.length * 0.1 + 0.05,
+                  delay: NAV_ITEMS.length * 0.1 + 0.05,
                   duration: 0.45,
                   ease: [0.16, 1, 0.3, 1],
                 }}
